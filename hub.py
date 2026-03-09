@@ -55,6 +55,9 @@ class ToolHubApp:
             "bg": "#F3F7FC",
             "surface": "#FFFFFF",
             "panel": "#E8EFF8",
+            "table_head_bg": "#EEF4FC",
+            "table_head_border": "#D6E2F0",
+            "table_grid": "#E2EAF5",
             "header": "#DCE9F9",
             "header_text": "#1E3555",
             "text": "#223247",
@@ -102,6 +105,16 @@ class ToolHubApp:
         style.configure("Search.Panel.TLabel", background="#EAF3FF", foreground=self.colors["text"], font=("Segoe UI", 9))
         style.configure("Action.Panel.TLabel", background="#EDF4FC", foreground=self.colors["text"], font=("Segoe UI", 9))
         style.configure("Dialog.TLabel", background=self.colors["surface"], foreground=self.colors["text"])
+        style.configure(
+            "Header.TButton",
+            font=("Segoe UI Semibold", 9),
+            padding=(10, 5),
+            borderwidth=1,
+            relief="solid",
+            background="#C7DAF4",
+            foreground="#1B385C",
+        )
+        style.map("Header.TButton", background=[("active", "#B5CFEF")])
         style.configure(
             "Title.TLabel",
             background=self.colors["header"],
@@ -168,14 +181,25 @@ class ToolHubApp:
         style.map("App.Horizontal.TScrollbar", background=[("active", self.colors["scroll_thumb_active"])])
         style.configure(
             "Treeview",
-            rowheight=30,
-            font=("Segoe UI", 10),
+            rowheight=24,
+            font=("Segoe UI", 9),
             fieldbackground=self.colors["surface"],
             background=self.colors["surface"],
             foreground=self.colors["text"],
-            bordercolor=self.colors["panel"],
+            bordercolor=self.colors["table_grid"],
         )
-        style.configure("Treeview.Heading", font=("Segoe UI Semibold", 9), padding=(8, 7), background=self.colors["panel"], foreground=self.colors["text"])
+        style.configure(
+            "Treeview.Heading",
+            font=("Segoe UI Semibold", 8),
+            padding=(6, 4),
+            background=self.colors["table_head_bg"],
+            foreground=self.colors["text"],
+            bordercolor=self.colors["table_head_border"],
+            darkcolor=self.colors["table_head_border"],
+            lightcolor=self.colors["table_head_border"],
+            relief="flat",
+        )
+        style.map("Treeview.Heading", background=[("active", "#E8F1FB")])
         style.map(
             "Treeview",
             background=[("selected", self.colors["selected"])],
@@ -188,6 +212,7 @@ class ToolHubApp:
 
         header = tk.Frame(root_container, bg=self.colors["header"], padx=16, pady=12)
         header.pack(fill=tk.X)
+        ttk.Button(header, text="MoneTag", style="Header.TButton", command=self.open_monetag_statistics).pack(side=tk.RIGHT, padx=(12, 0))
         ttk.Label(header, text="ToolHub", style="Title.TLabel").pack(anchor=tk.W)
         ttk.Label(
             header,
@@ -545,6 +570,9 @@ class ToolHubApp:
         entry = self._selected_entry()
         if entry:
             self._open_url("Firebase Console", entry.firebase_console_url)
+
+    def open_monetag_statistics(self) -> None:
+        self._open_url("MoneTag Statistics", "https://publishers.monetag.com/statistics")
 
     def open_selected_project_folder(self) -> None:
         entry = self._selected_entry()
