@@ -14,6 +14,7 @@ DEFAULT_DATA_FILE = "tools_data.json"
 @dataclass
 class ToolEntry:
     name: str
+    email: str = ""
     website_url: str = ""
     github_url: str = ""
     firebase_console_url: str = ""
@@ -51,18 +52,24 @@ class ToolHubApp:
 
     def _apply_theme(self) -> None:
         self.colors = {
-            "bg": "#F4F7FB",
+            "bg": "#F3F7FC",
             "surface": "#FFFFFF",
-            "header": "#0F355A",
-            "header_text": "#FFFFFF",
-            "text": "#1D2B3A",
-            "muted": "#6B7A8D",
-            "accent": "#1F78D1",
-            "success": "#198754",
-            "danger": "#D14343",
+            "panel": "#E8EFF8",
+            "header": "#DCE9F9",
+            "header_text": "#1E3555",
+            "text": "#223247",
+            "muted": "#5D728A",
+            "accent": "#2F7BD9",
+            "success": "#1FA971",
+            "danger": "#D9534F",
             "row_even": "#FFFFFF",
-            "row_odd": "#F8FBFF",
-            "selected": "#D6E8FA",
+            "row_odd": "#F6FAFF",
+            "selected": "#D9E9FB",
+            "input_bg": "#FFFFFF",
+            "input_fg": "#223247",
+            "scroll_thumb": "#B7CAE3",
+            "scroll_thumb_active": "#9FB7D7",
+            "scroll_trough": "#EAF1FA",
         }
 
         style = ttk.Style(self.root)
@@ -75,6 +82,26 @@ class ToolHubApp:
 
         style.configure("App.TFrame", background=self.colors["bg"])
         style.configure("Card.TFrame", background=self.colors["surface"], relief="flat")
+        style.configure("Dialog.TFrame", background=self.colors["surface"])
+        style.configure("App.TLabel", background=self.colors["bg"], foreground=self.colors["text"], font=("Segoe UI", 10))
+        style.configure("Panel.TLabel", background=self.colors["panel"], foreground=self.colors["text"], font=("Segoe UI", 10))
+        style.configure("TLabelFrame", background=self.colors["panel"], borderwidth=1, relief="groove")
+        style.configure(
+            "TLabelFrame.Label",
+            background=self.colors["panel"],
+            foreground=self.colors["muted"],
+            font=("Segoe UI Semibold", 8),
+        )
+        style.configure("Manage.TLabelframe", background="#E6EEF9", borderwidth=1, relief="groove")
+        style.configure("Manage.TLabelframe.Label", background="#E6EEF9", foreground="#436082", font=("Segoe UI Semibold", 8))
+        style.configure("Search.TLabelframe", background="#EAF3FF", borderwidth=1, relief="groove")
+        style.configure("Search.TLabelframe.Label", background="#EAF3FF", foreground="#436082", font=("Segoe UI Semibold", 8))
+        style.configure("Action.TLabelframe", background="#EDF4FC", borderwidth=1, relief="groove")
+        style.configure("Action.TLabelframe.Label", background="#EDF4FC", foreground="#436082", font=("Segoe UI Semibold", 8))
+        style.configure("Manage.Panel.TLabel", background="#E6EEF9", foreground=self.colors["text"], font=("Segoe UI", 9))
+        style.configure("Search.Panel.TLabel", background="#EAF3FF", foreground=self.colors["text"], font=("Segoe UI", 9))
+        style.configure("Action.Panel.TLabel", background="#EDF4FC", foreground=self.colors["text"], font=("Segoe UI", 9))
+        style.configure("Dialog.TLabel", background=self.colors["surface"], foreground=self.colors["text"])
         style.configure(
             "Title.TLabel",
             background=self.colors["header"],
@@ -84,7 +111,7 @@ class ToolHubApp:
         style.configure(
             "Subtitle.TLabel",
             background=self.colors["header"],
-            foreground="#CFE2F7",
+            foreground="#4F6B8A",
             font=("Segoe UI", 10),
         )
         style.configure(
@@ -96,34 +123,59 @@ class ToolHubApp:
 
         style.configure(
             "TButton",
-            font=("Segoe UI", 10),
-            padding=(10, 6),
+            font=("Segoe UI", 9),
+            padding=(8, 4),
             borderwidth=1,
             relief="solid",
+            background="#E1EAF6",
+            foreground=self.colors["text"],
         )
-        style.map("TButton", background=[("active", "#F3F8FF")])
+        style.map("TButton", background=[("active", "#D5E3F5")], foreground=[("disabled", "#97A7B8")])
         style.configure("Primary.TButton", foreground="#FFFFFF", background=self.colors["accent"])
-        style.map("Primary.TButton", background=[("active", "#1765B3")])
+        style.map("Primary.TButton", background=[("active", "#2567BA")], foreground=[("active", "#FFFFFF")])
         style.configure("Danger.TButton", foreground="#FFFFFF", background=self.colors["danger"])
-        style.map("Danger.TButton", background=[("active", "#B43333")])
+        style.map("Danger.TButton", background=[("active", "#DC2626")])
         style.configure("Success.TButton", foreground="#FFFFFF", background=self.colors["success"])
-        style.map("Success.TButton", background=[("active", "#136C43")])
+        style.map("Success.TButton", background=[("active", "#059669")])
 
-        style.configure("TEntry", padding=6, font=("Segoe UI", 10))
+        style.configure(
+            "TEntry",
+            padding=6,
+            font=("Segoe UI", 9),
+            fieldbackground=self.colors["input_bg"],
+            foreground=self.colors["input_fg"],
+            insertcolor=self.colors["input_fg"],
+            bordercolor="#C8D7EB",
+            lightcolor="#C8D7EB",
+            darkcolor="#C8D7EB",
+        )
+        style.configure(
+            "App.Vertical.TScrollbar",
+            background=self.colors["scroll_thumb"],
+            troughcolor=self.colors["scroll_trough"],
+            bordercolor=self.colors["scroll_trough"],
+            arrowcolor=self.colors["muted"],
+            width=14,
+        )
+        style.map("App.Vertical.TScrollbar", background=[("active", self.colors["scroll_thumb_active"])])
+        style.configure(
+            "App.Horizontal.TScrollbar",
+            background=self.colors["scroll_thumb"],
+            troughcolor=self.colors["scroll_trough"],
+            bordercolor=self.colors["scroll_trough"],
+            arrowcolor=self.colors["muted"],
+        )
+        style.map("App.Horizontal.TScrollbar", background=[("active", self.colors["scroll_thumb_active"])])
         style.configure(
             "Treeview",
             rowheight=30,
             font=("Segoe UI", 10),
             fieldbackground=self.colors["surface"],
             background=self.colors["surface"],
-        )
-        style.configure(
-            "Treeview.Heading",
-            font=("Segoe UI Semibold", 10),
-            padding=(8, 8),
-            background="#EAF0F8",
             foreground=self.colors["text"],
+            bordercolor=self.colors["panel"],
         )
+        style.configure("Treeview.Heading", font=("Segoe UI Semibold", 9), padding=(8, 7), background=self.colors["panel"], foreground=self.colors["text"])
         style.map(
             "Treeview",
             background=[("selected", self.colors["selected"])],
@@ -143,37 +195,39 @@ class ToolHubApp:
             style="Subtitle.TLabel",
         ).pack(anchor=tk.W, pady=(2, 0))
 
-        toolbar = ttk.Frame(root_container, style="App.TFrame", padding=(14, 12, 14, 8))
+        toolbar = ttk.Frame(root_container, style="App.TFrame", padding=(14, 12, 14, 10))
         toolbar.pack(fill=tk.X)
 
-        manage_group = ttk.LabelFrame(toolbar, text="Manage", padding=(10, 8))
+        manage_group = ttk.LabelFrame(toolbar, text="Manage", style="Manage.TLabelframe", padding=(12, 10))
         manage_group.pack(side=tk.LEFT, padx=(0, 12))
-        ttk.Button(manage_group, text="Add", style="Primary.TButton", command=self.add_entry).pack(side=tk.LEFT, padx=4)
-        ttk.Button(manage_group, text="Edit", command=self.edit_entry).pack(side=tk.LEFT, padx=4)
-        ttk.Button(manage_group, text="Delete", style="Danger.TButton", command=self.delete_entry).pack(side=tk.LEFT, padx=4)
-        ttk.Button(manage_group, text="Reload", command=self.reload_entries).pack(side=tk.LEFT, padx=4)
+        ttk.Button(manage_group, text="Add", style="Primary.TButton", command=self.add_entry).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="Edit", command=self.edit_entry).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="Delete", style="Danger.TButton", command=self.delete_entry).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="Reload", command=self.reload_entries).pack(side=tk.LEFT, padx=3, pady=1)
 
-        search_group = ttk.LabelFrame(toolbar, text="Search", padding=(10, 8))
+        search_group = ttk.LabelFrame(toolbar, text="Search", style="Search.TLabelframe", padding=(12, 10))
         search_group.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 12))
-        ttk.Label(search_group, text="Tool Name:").pack(side=tk.LEFT, padx=(0, 6))
-        self.search_entry = ttk.Entry(search_group, textvariable=self.search_var, width=36)
-        self.search_entry.pack(side=tk.LEFT, padx=(0, 8), fill=tk.X, expand=True)
+        ttk.Label(search_group, text="Tool Name:", style="Search.Panel.TLabel").pack(side=tk.LEFT, padx=(0, 8))
+        self.search_entry = ttk.Entry(search_group, textvariable=self.search_var, width=32)
+        self.search_entry.pack(side=tk.LEFT, padx=(0, 8), fill=tk.X, expand=True, ipady=1)
         self.search_entry.bind("<KeyRelease>", lambda _event: self.refresh_table())
-        ttk.Button(search_group, text="Clear", command=self.clear_search).pack(side=tk.LEFT)
+        ttk.Button(search_group, text="Clear", command=self.clear_search).pack(side=tk.LEFT, pady=1)
 
-        action_group = ttk.LabelFrame(toolbar, text="Actions", padding=(10, 8))
+        action_group = ttk.LabelFrame(toolbar, text="Actions", style="Action.TLabelframe", padding=(12, 10))
         action_group.pack(side=tk.RIGHT)
-        ttk.Button(action_group, text="Run", style="Success.TButton", command=self.run_selected_tool).pack(side=tk.LEFT, padx=4)
-        ttk.Button(action_group, text="Website", command=self.open_selected_website).pack(side=tk.LEFT, padx=4)
-        ttk.Button(action_group, text="GitHub", command=self.open_selected_github).pack(side=tk.LEFT, padx=4)
-        ttk.Button(action_group, text="Firebase", command=self.open_selected_firebase).pack(side=tk.LEFT, padx=4)
+        ttk.Button(action_group, text="Run", style="Success.TButton", command=self.run_selected_tool).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="Open Folder", command=self.open_selected_project_folder).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="Website", command=self.open_selected_website).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="GitHub", command=self.open_selected_github).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="Firebase", command=self.open_selected_firebase).pack(side=tk.LEFT, padx=3, pady=1)
 
         table_card = ttk.Frame(root_container, style="Card.TFrame", padding=(14, 8, 14, 8))
         table_card.pack(fill=tk.BOTH, expand=True)
 
-        columns = ("name", "website_url", "github_url", "firebase_console_url", "project_path", "run_file")
+        columns = ("name", "email", "website_url", "github_url", "firebase_console_url", "project_path", "run_file")
         self.tree = ttk.Treeview(table_card, columns=columns, show="headings", selectmode="browse")
         self.tree.heading("name", text="Tool Name")
+        self.tree.heading("email", text="Email")
         self.tree.heading("website_url", text="Website URL")
         self.tree.heading("github_url", text="GitHub URL")
         self.tree.heading("firebase_console_url", text="Firebase Console URL")
@@ -181,6 +235,7 @@ class ToolHubApp:
         self.tree.heading("run_file", text="Run File")
 
         self.tree.column("name", width=180, anchor=tk.W)
+        self.tree.column("email", width=220, anchor=tk.W)
         self.tree.column("website_url", width=220, anchor=tk.W)
         self.tree.column("github_url", width=220, anchor=tk.W)
         self.tree.column("firebase_console_url", width=240, anchor=tk.W)
@@ -190,8 +245,8 @@ class ToolHubApp:
         self.tree.tag_configure("even", background=self.colors["row_even"])
         self.tree.tag_configure("odd", background=self.colors["row_odd"])
 
-        y_scroll = ttk.Scrollbar(table_card, orient=tk.VERTICAL, command=self.tree.yview)
-        x_scroll = ttk.Scrollbar(table_card, orient=tk.HORIZONTAL, command=self.tree.xview)
+        y_scroll = ttk.Scrollbar(table_card, orient=tk.VERTICAL, style="App.Vertical.TScrollbar", command=self.tree.yview)
+        x_scroll = ttk.Scrollbar(table_card, orient=tk.HORIZONTAL, style="App.Horizontal.TScrollbar", command=self.tree.xview)
         self.tree.configure(yscrollcommand=y_scroll.set, xscrollcommand=x_scroll.set)
 
         self.tree.grid(row=0, column=0, sticky="nsew")
@@ -231,6 +286,7 @@ class ToolHubApp:
                 self.entries.append(
                     ToolEntry(
                         name=str(item.get("name", "")).strip(),
+                        email=str(item.get("email", "")).strip(),
                         website_url=str(item.get("website_url", "")).strip(),
                         github_url=str(item.get("github_url", "")).strip(),
                         firebase_console_url=str(item.get("firebase_console_url", "")).strip(),
@@ -266,6 +322,7 @@ class ToolHubApp:
                 tags=(tag,),
                 values=(
                     entry.name,
+                    entry.email,
                     entry.website_url,
                     entry.github_url,
                     entry.firebase_console_url,
@@ -318,12 +375,14 @@ class ToolHubApp:
     def _entry_dialog(self, title: str, default: ToolEntry | None = None) -> ToolEntry | None:
         dialog = tk.Toplevel(self.root)
         dialog.title(title)
+        dialog.configure(bg=self.colors["surface"])
         dialog.transient(self.root)
         dialog.grab_set()
         dialog.resizable(False, False)
 
         vars_map = {
             "name": tk.StringVar(value=(default.name if default else "")),
+            "email": tk.StringVar(value=(default.email if default else "")),
             "website_url": tk.StringVar(value=(default.website_url if default else "")),
             "github_url": tk.StringVar(value=(default.github_url if default else "")),
             "firebase_console_url": tk.StringVar(value=(default.firebase_console_url if default else "")),
@@ -331,11 +390,12 @@ class ToolHubApp:
             "run_file": tk.StringVar(value=(default.run_file if default else "")),
         }
 
-        form = ttk.Frame(dialog, padding=14)
+        form = ttk.Frame(dialog, style="Dialog.TFrame", padding=14)
         form.grid(row=0, column=0, sticky="nsew")
 
         labels = [
             ("Tool Name*", "name"),
+            ("Email", "email"),
             ("Website URL", "website_url"),
             ("GitHub URL", "github_url"),
             ("Firebase Console URL", "firebase_console_url"),
@@ -344,7 +404,7 @@ class ToolHubApp:
         ]
 
         for row_idx, (label, key) in enumerate(labels):
-            ttk.Label(form, text=label).grid(row=row_idx, column=0, sticky="w", pady=5)
+            ttk.Label(form, text=label, style="Dialog.TLabel").grid(row=row_idx, column=0, sticky="w", pady=5)
             entry_widget = ttk.Entry(form, textvariable=vars_map[key], width=78)
             entry_widget.grid(row=row_idx, column=1, sticky="ew", padx=(8, 0), pady=5)
 
@@ -379,6 +439,7 @@ class ToolHubApp:
 
             result["value"] = ToolEntry(
                 name=name,
+                email=vars_map["email"].get().strip(),
                 website_url=vars_map["website_url"].get().strip(),
                 github_url=vars_map["github_url"].get().strip(),
                 firebase_console_url=vars_map["firebase_console_url"].get().strip(),
@@ -485,6 +546,30 @@ class ToolHubApp:
         if entry:
             self._open_url("Firebase Console", entry.firebase_console_url)
 
+    def open_selected_project_folder(self) -> None:
+        entry = self._selected_entry()
+        if not entry:
+            return
+
+        project_path = (entry.project_path or "").strip()
+        if not project_path:
+            messagebox.showinfo("Missing project path", "Selected tool has no Project Path.")
+            return
+
+        target = os.path.normpath(project_path)
+        if not os.path.exists(target):
+            messagebox.showerror("Open folder error", f"Project path not found:\n{target}")
+            return
+
+        if os.path.isfile(target):
+            target = os.path.dirname(target)
+
+        try:
+            os.startfile(target)  # type: ignore[attr-defined]
+            self.status_var.set(f"Opened folder: {os.path.basename(target) or target}")
+        except Exception as exc:
+            messagebox.showerror("Open folder error", f"Cannot open folder:\n{target}\n\n{exc}")
+
     def run_selected_tool(self) -> None:
         entry = self._selected_entry()
         if not entry:
@@ -521,6 +606,7 @@ def ensure_data_file(path: str) -> None:
     sample = [
         {
             "name": "Example Tool",
+            "email": "owner@example.com",
             "website_url": "https://example.com",
             "github_url": "https://github.com/example/repo",
             "firebase_console_url": "https://console.firebase.google.com",

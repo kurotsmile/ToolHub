@@ -1,42 +1,65 @@
 [
   {
-    "name": "Example Tool",
-    "website_url": "https://example.com",
-    "github_url": "https://github.com/example/repo",
-    "firebase_console_url": "https://console.firebase.google.com",
-    "project_path": "D:\\Projects\\ToolHub",
-    "run_file": "run_hub.cmd"
-  },
-  {
     "name": "autoboostimg",
-    "website_url": "autoboostimg",
+    "email": "dangthivan79@gmail.com",
+    "website_url": "https://autoboostimg.web.app",
     "github_url": "https://github.com/kurotsmile/autoboostimg",
-    "firebase_console_url": "autoboostimg",
+    "firebase_console_url": "https://console.firebase.google.com/project/autoboostimg/hosting/sites/autoboostimg",
     "project_path": "D:/Projects/autoboostimg",
-    "run_file": "run_web.bat"
+    "run_file": "run_web.cmd"
   },
   {
     "name": "duotonefy",
-    "website_url": "",
-    "github_url": "",
-    "firebase_console_url": "",
+    "email": "dangthivan79@gmail.com",
+    "website_url": "https://duotonefy.web.app",
+    "github_url": "https://github.com/kurotsmile/duotonefy",
+    "firebase_console_url": "https://console.firebase.google.com/project/duotonefy/hosting/sites/duotonefy",
     "project_path": "D:/Projects/duotonefy",
     "run_file": "run_web.bat"
   },
   {
     "name": "gamepadtool",
+    "email": "nguyennhung2672@gmail.com",
     "website_url": "https://gamepadtool.web.app",
     "github_url": "https://github.com/kurotsmile/gamepadtool",
-    "firebase_console_url": "",
+    "firebase_console_url": "https://console.firebase.google.com/project/gamepadtool/hosting/sites/gamepadtool",
     "project_path": "D:/Projects/gamepadtool",
     "run_file": "run_web.cmd"
   },
   {
-    "name": "Run_Pc_Speed_Tes",
+    "name": "PC-Speed-Test",
+    "email": "nguyennhung2672@gmail.com",
     "website_url": "https://pcspeedtool.web.app",
     "github_url": "https://github.com/kurotsmile/PC-Speed-Test",
-    "firebase_console_url": "",
+    "firebase_console_url": "https://console.firebase.google.com/project/pcspeedtool/hosting/sites/pcspeedtool",
     "project_path": "D:/Projects/PC-Speed-Test",
-    "run_file": "Run_Pc_Speed_Test.bat"
+    "run_file": "run_web.bat"
+  },
+  {
+    "name": "CoCRent",
+    "email": "dangthivan79@gmail.com",
+    "website_url": "https://cocshop28.web.app",
+    "github_url": "https://github.com/kurotsmile/CoCRent",
+    "firebase_console_url": "https://console.firebase.google.com/project/cocshop28/hosting/sites/cocshop28",
+    "project_path": "D:/Projects/CoCRent",
+    "run_file": "run_web.cmd"
+  },
+  {
+    "name": "imgbase64",
+    "email": "nguyennhung2672@gmail.com",
+    "website_url": "https://pastecropimage.web.app",
+    "github_url": "https://github.com/kurotsmile/imgbase64",
+    "firebase_console_url": "https://console.firebase.google.com/project/pastecropimage/hosting/sites/pastecropimage",
+    "project_path": "D:/Projects/imgbase64",
+    "run_file": "run_web.cmd"
+  },
+  {
+    "name": "Paste-Crop-Image",
+    "email": "nguyennhung2672@gmail.com",
+    "website_url": "https://pastecropimage.web.app",
+    "github_url": "https://github.com/kurotsmile/Paste-Crop-Image",
+    "firebase_console_url": "https://console.firebase.google.com/project/pastecropimage/hosting/sites/pastecropimage",
+    "project_path": "D:/Projects/Paste-Crop-Image",
+    "run_file": "run_web.cmd"
   }
 ]
