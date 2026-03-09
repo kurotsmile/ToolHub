@@ -1,4 +1,5 @@
 import argparse
+import ctypes
 import json
 import os
 from dataclasses import asdict, dataclass
@@ -10,6 +11,7 @@ import webbrowser
 
 
 DEFAULT_DATA_FILE = "tools_data.json"
+APP_USER_MODEL_ID = "ToolHub.DesktopApp"
 
 
 @dataclass
@@ -777,6 +779,15 @@ def ensure_data_file(path: str) -> None:
         json.dump(sample, f, ensure_ascii=False, indent=2)
 
 
+def set_windows_app_id() -> None:
+    if os.name != "nt":
+        return
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_USER_MODEL_ID)
+    except Exception:
+        pass
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="ToolHub - manage website/GitHub/Firebase links")
     parser.add_argument("--data", default=DEFAULT_DATA_FILE, help="Path to JSON data file")
@@ -798,6 +809,7 @@ def main() -> int:
         print(f"CHECK OK: {data_file}")
         return 0
 
+    set_windows_app_id()
     root = tk.Tk()
     app = ToolHubApp(root, data_file=data_file)
     root.mainloop()
