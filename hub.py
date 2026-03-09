@@ -5,6 +5,7 @@ from dataclasses import asdict, dataclass
 from typing import List
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
+from urllib.parse import quote_plus
 import webbrowser
 
 
@@ -29,6 +30,7 @@ class ToolHubApp:
         self.entries: List[ToolEntry] = []
         self.visible_indices: List[int] = []
         self.search_var = tk.StringVar(value="")
+        self.email_filter_var = tk.StringVar(value="All emails")
         self.status_var = tk.StringVar(value="Ready")
 
         self.root.title("ToolHub - Project Link Manager")
@@ -55,6 +57,9 @@ class ToolHubApp:
             "bg": "#F3F7FC",
             "surface": "#FFFFFF",
             "panel": "#E8EFF8",
+            "panel_border": "#BFD6F2",
+            "button_border": "#AEC8E8",
+            "button_border_hover": "#95B6DD",
             "table_head_bg": "#EEF4FC",
             "table_head_border": "#D6E2F0",
             "table_grid": "#E2EAF5",
@@ -88,18 +93,50 @@ class ToolHubApp:
         style.configure("Dialog.TFrame", background=self.colors["surface"])
         style.configure("App.TLabel", background=self.colors["bg"], foreground=self.colors["text"], font=("Segoe UI", 10))
         style.configure("Panel.TLabel", background=self.colors["panel"], foreground=self.colors["text"], font=("Segoe UI", 10))
-        style.configure("TLabelFrame", background=self.colors["panel"], borderwidth=1, relief="groove")
+        style.configure(
+            "TLabelFrame",
+            background=self.colors["panel"],
+            borderwidth=1,
+            relief="solid",
+            bordercolor=self.colors["panel_border"],
+            lightcolor=self.colors["panel_border"],
+            darkcolor=self.colors["panel_border"],
+        )
         style.configure(
             "TLabelFrame.Label",
             background=self.colors["panel"],
             foreground=self.colors["muted"],
             font=("Segoe UI Semibold", 8),
         )
-        style.configure("Manage.TLabelframe", background="#E6EEF9", borderwidth=1, relief="groove")
+        style.configure(
+            "Manage.TLabelframe",
+            background="#E6EEF9",
+            borderwidth=1,
+            relief="solid",
+            bordercolor=self.colors["panel_border"],
+            lightcolor=self.colors["panel_border"],
+            darkcolor=self.colors["panel_border"],
+        )
         style.configure("Manage.TLabelframe.Label", background="#E6EEF9", foreground="#436082", font=("Segoe UI Semibold", 8))
-        style.configure("Search.TLabelframe", background="#EAF3FF", borderwidth=1, relief="groove")
+        style.configure(
+            "Search.TLabelframe",
+            background="#EAF3FF",
+            borderwidth=1,
+            relief="solid",
+            bordercolor=self.colors["panel_border"],
+            lightcolor=self.colors["panel_border"],
+            darkcolor=self.colors["panel_border"],
+        )
         style.configure("Search.TLabelframe.Label", background="#EAF3FF", foreground="#436082", font=("Segoe UI Semibold", 8))
-        style.configure("Action.TLabelframe", background="#EDF4FC", borderwidth=1, relief="groove")
+        style.configure(
+            "Action.TLabelframe",
+            background="#EDF4FC",
+            borderwidth=1,
+            relief="solid",
+            bordercolor=self.colors["panel_border"],
+            lightcolor=self.colors["panel_border"],
+            darkcolor=self.colors["panel_border"],
+        )
         style.configure("Action.TLabelframe.Label", background="#EDF4FC", foreground="#436082", font=("Segoe UI Semibold", 8))
         style.configure("Manage.Panel.TLabel", background="#E6EEF9", foreground=self.colors["text"], font=("Segoe UI", 9))
         style.configure("Search.Panel.TLabel", background="#EAF3FF", foreground=self.colors["text"], font=("Segoe UI", 9))
@@ -142,14 +179,40 @@ class ToolHubApp:
             relief="solid",
             background="#E1EAF6",
             foreground=self.colors["text"],
+            bordercolor=self.colors["button_border"],
+            lightcolor=self.colors["button_border"],
+            darkcolor=self.colors["button_border"],
         )
         style.map("TButton", background=[("active", "#D5E3F5")], foreground=[("disabled", "#97A7B8")])
-        style.configure("Primary.TButton", foreground="#FFFFFF", background=self.colors["accent"])
+        style.map("TButton", bordercolor=[("active", self.colors["button_border_hover"])])
+        style.configure(
+            "Primary.TButton",
+            foreground="#FFFFFF",
+            background=self.colors["accent"],
+            bordercolor="#2A6FC3",
+            lightcolor="#2A6FC3",
+            darkcolor="#2A6FC3",
+        )
         style.map("Primary.TButton", background=[("active", "#2567BA")], foreground=[("active", "#FFFFFF")])
-        style.configure("Danger.TButton", foreground="#FFFFFF", background=self.colors["danger"])
-        style.map("Danger.TButton", background=[("active", "#DC2626")])
-        style.configure("Success.TButton", foreground="#FFFFFF", background=self.colors["success"])
-        style.map("Success.TButton", background=[("active", "#059669")])
+        style.map("Primary.TButton", bordercolor=[("active", "#235EA9")])
+        style.configure(
+            "Danger.TButton",
+            foreground="#FFFFFF",
+            background=self.colors["danger"],
+            bordercolor="#C84744",
+            lightcolor="#C84744",
+            darkcolor="#C84744",
+        )
+        style.map("Danger.TButton", background=[("active", "#DC2626")], bordercolor=[("active", "#B83F3C")])
+        style.configure(
+            "Success.TButton",
+            foreground="#FFFFFF",
+            background=self.colors["success"],
+            bordercolor="#1A9364",
+            lightcolor="#1A9364",
+            darkcolor="#1A9364",
+        )
+        style.map("Success.TButton", background=[("active", "#059669")], bordercolor=[("active", "#157F58")])
 
         style.configure(
             "TEntry",
@@ -161,6 +224,29 @@ class ToolHubApp:
             bordercolor="#C8D7EB",
             lightcolor="#C8D7EB",
             darkcolor="#C8D7EB",
+        )
+        style.configure(
+            "Search.TCombobox",
+            padding=4,
+            arrowsize=14,
+            fieldbackground=self.colors["input_bg"],
+            background=self.colors["input_bg"],
+            foreground=self.colors["input_fg"],
+            arrowcolor=self.colors["muted"],
+            bordercolor="#C8D7EB",
+            lightcolor="#C8D7EB",
+            darkcolor="#C8D7EB",
+            insertcolor=self.colors["input_fg"],
+        )
+        style.map(
+            "Search.TCombobox",
+            fieldbackground=[("readonly", self.colors["input_bg"]), ("focus", "#F7FBFF")],
+            background=[("readonly", self.colors["input_bg"]), ("focus", "#F7FBFF")],
+            foreground=[("readonly", self.colors["input_fg"])],
+            bordercolor=[("focus", self.colors["button_border_hover"])],
+            lightcolor=[("focus", self.colors["button_border_hover"])],
+            darkcolor=[("focus", self.colors["button_border_hover"])],
+            arrowcolor=[("active", self.colors["header_text"])],
         )
         style.configure(
             "App.Vertical.TScrollbar",
@@ -212,7 +298,7 @@ class ToolHubApp:
 
         header = tk.Frame(root_container, bg=self.colors["header"], padx=16, pady=12)
         header.pack(fill=tk.X)
-        ttk.Button(header, text="MoneTag", style="Header.TButton", command=self.open_monetag_statistics).pack(side=tk.RIGHT, padx=(12, 0))
+        ttk.Button(header, text="◦ MoneTag", style="Header.TButton", command=self.open_monetag_statistics).pack(side=tk.RIGHT, padx=(12, 0))
         ttk.Label(header, text="ToolHub", style="Title.TLabel").pack(anchor=tk.W)
         ttk.Label(
             header,
@@ -223,28 +309,43 @@ class ToolHubApp:
         toolbar = ttk.Frame(root_container, style="App.TFrame", padding=(14, 12, 14, 10))
         toolbar.pack(fill=tk.X)
 
-        manage_group = ttk.LabelFrame(toolbar, text="Manage", style="Manage.TLabelframe", padding=(12, 10))
+        toolbar_top = ttk.Frame(toolbar, style="App.TFrame")
+        toolbar_top.pack(fill=tk.X)
+
+        manage_group = ttk.LabelFrame(toolbar_top, text="Manage", style="Manage.TLabelframe", padding=(12, 10))
         manage_group.pack(side=tk.LEFT, padx=(0, 12))
-        ttk.Button(manage_group, text="Add", style="Primary.TButton", command=self.add_entry).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(manage_group, text="Edit", command=self.edit_entry).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(manage_group, text="Delete", style="Danger.TButton", command=self.delete_entry).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(manage_group, text="Reload", command=self.reload_entries).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="+ Add", style="Primary.TButton", command=self.add_entry).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="✎ Edit", command=self.edit_entry).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="✕ Delete", style="Danger.TButton", command=self.delete_entry).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(manage_group, text="↻ Reload", command=self.reload_entries).pack(side=tk.LEFT, padx=3, pady=1)
+
+        action_group = ttk.LabelFrame(toolbar_top, text="Actions", style="Action.TLabelframe", padding=(12, 10))
+        action_group.pack(side=tk.RIGHT)
+        ttk.Button(action_group, text="▶ Run", style="Success.TButton", command=self.run_selected_tool).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="⌂ Folder", command=self.open_selected_project_folder).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="⛶ Website", command=self.open_selected_website).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="◔ SEO", command=self.open_selected_seo_check).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="<> GitHub", command=self.open_selected_github).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Button(action_group, text="◈ Firebase", command=self.open_selected_firebase).pack(side=tk.LEFT, padx=3, pady=1)
 
         search_group = ttk.LabelFrame(toolbar, text="Search", style="Search.TLabelframe", padding=(12, 10))
-        search_group.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 12))
+        search_group.pack(fill=tk.X, pady=(8, 0))
         ttk.Label(search_group, text="Tool Name:", style="Search.Panel.TLabel").pack(side=tk.LEFT, padx=(0, 8))
         self.search_entry = ttk.Entry(search_group, textvariable=self.search_var, width=32)
         self.search_entry.pack(side=tk.LEFT, padx=(0, 8), fill=tk.X, expand=True, ipady=1)
         self.search_entry.bind("<KeyRelease>", lambda _event: self.refresh_table())
-        ttk.Button(search_group, text="Clear", command=self.clear_search).pack(side=tk.LEFT, pady=1)
-
-        action_group = ttk.LabelFrame(toolbar, text="Actions", style="Action.TLabelframe", padding=(12, 10))
-        action_group.pack(side=tk.RIGHT)
-        ttk.Button(action_group, text="Run", style="Success.TButton", command=self.run_selected_tool).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(action_group, text="Open Folder", command=self.open_selected_project_folder).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(action_group, text="Website", command=self.open_selected_website).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(action_group, text="GitHub", command=self.open_selected_github).pack(side=tk.LEFT, padx=3, pady=1)
-        ttk.Button(action_group, text="Firebase", command=self.open_selected_firebase).pack(side=tk.LEFT, padx=3, pady=1)
+        ttk.Label(search_group, text="Email:", style="Search.Panel.TLabel").pack(side=tk.LEFT, padx=(8, 8))
+        self.email_filter_combo = ttk.Combobox(
+            search_group,
+            textvariable=self.email_filter_var,
+            style="Search.TCombobox",
+            state="readonly",
+            width=24,
+            values=["All emails"],
+        )
+        self.email_filter_combo.pack(side=tk.LEFT, padx=(0, 8))
+        self.email_filter_combo.bind("<<ComboboxSelected>>", lambda _event: self.refresh_table())
+        ttk.Button(search_group, text="✕ Clear", command=self.clear_search).pack(side=tk.LEFT, pady=1)
 
         table_card = ttk.Frame(root_container, style="Card.TFrame", padding=(14, 8, 14, 8))
         table_card.pack(fill=tk.BOTH, expand=True)
@@ -330,10 +431,14 @@ class ToolHubApp:
         for row in self.tree.get_children():
             self.tree.delete(row)
 
+        self._refresh_email_filter_options()
         keyword = self.search_var.get().strip().lower()
+        email_filter = self.email_filter_var.get().strip().lower()
         self.visible_indices = []
         for idx, entry in enumerate(self.entries):
             if keyword and keyword not in entry.name.lower():
+                continue
+            if email_filter and email_filter != "all emails" and entry.email.lower() != email_filter:
                 continue
             self.visible_indices.append(idx)
 
@@ -385,8 +490,19 @@ class ToolHubApp:
 
     def clear_search(self) -> None:
         self.search_var.set("")
+        self.email_filter_var.set("All emails")
         self.refresh_table()
         self.search_entry.focus_set()
+
+    def _refresh_email_filter_options(self) -> None:
+        current = self.email_filter_var.get().strip() or "All emails"
+        email_values = sorted({entry.email.strip() for entry in self.entries if entry.email.strip()}, key=str.lower)
+        options = ["All emails"] + email_values
+        self.email_filter_combo["values"] = options
+        if current in options:
+            self.email_filter_var.set(current)
+        else:
+            self.email_filter_var.set("All emails")
 
     def _update_status(self) -> None:
         total = len(self.entries)
@@ -436,13 +552,13 @@ class ToolHubApp:
             if key == "project_path":
                 ttk.Button(
                     form,
-                    text="Browse Folder",
+                    text="… Folder",
                     command=lambda v=vars_map["project_path"]: self._browse_folder(v, dialog),
                 ).grid(row=row_idx, column=2, sticky="w", padx=(8, 0), pady=5)
             if key == "run_file":
                 ttk.Button(
                     form,
-                    text="Browse File",
+                    text="… File",
                     command=lambda v=vars_map["run_file"]: self._browse_file(v, vars_map["project_path"], dialog),
                 ).grid(row=row_idx, column=2, sticky="w", padx=(8, 0), pady=5)
 
@@ -473,8 +589,8 @@ class ToolHubApp:
             )
             dialog.destroy()
 
-        ttk.Button(buttons, text="Cancel", command=dialog.destroy).pack(side=tk.RIGHT, padx=(8, 0))
-        ttk.Button(buttons, text="Save", style="Primary.TButton", command=on_ok).pack(side=tk.RIGHT)
+        ttk.Button(buttons, text="✕ Cancel", command=dialog.destroy).pack(side=tk.RIGHT, padx=(8, 0))
+        ttk.Button(buttons, text="✓ Save", style="Primary.TButton", command=on_ok).pack(side=tk.RIGHT)
 
         dialog.wait_window()
         return result["value"]
@@ -570,6 +686,20 @@ class ToolHubApp:
         entry = self._selected_entry()
         if entry:
             self._open_url("Firebase Console", entry.firebase_console_url)
+
+    def open_selected_seo_check(self) -> None:
+        entry = self._selected_entry()
+        if not entry:
+            return
+
+        website_url = (entry.website_url or "").strip()
+        if not website_url:
+            messagebox.showinfo("Missing URL", "Selected tool has no Website URL.")
+            return
+
+        query = quote_plus(f"site:{website_url}")
+        webbrowser.open_new_tab(f"https://www.google.com/search?q={query}")
+        self.status_var.set("Opened SEO check")
 
     def open_monetag_statistics(self) -> None:
         self._open_url("MoneTag Statistics", "https://publishers.monetag.com/statistics")

@@ -61,5 +61,23 @@
     "firebase_console_url": "https://console.firebase.google.com/project/pastecropimage/hosting/sites/pastecropimage",
     "project_path": "D:/Projects/Paste-Crop-Image",
     "run_file": "run_web.cmd"
+  },
+  {
+    "name": "palettekit",
+    "email": "vanmaicodon93@gmail.com",
+    "website_url": "https://palettekitcolor.web.app",
+    "github_url": "https://github.com/kurotsmile/palettekit",
+    "firebase_console_url": "https://console.firebase.google.com/project/palettekitcolor/hosting/sites/palettekitcolor",
+    "project_path": "D:/Projects/palettekit",
+    "run_file": "run_web.bat"
+  },
+  {
+    "name": "edgestroke",
+    "email": "vanmaicodon93@gmail.com",
+    "website_url": "https://edgestrokeimg.web.app",
+    "github_url": "https://github.com/kurotsmile/edgestroke",
+    "firebase_console_url": "https://console.firebase.google.com/project/edgestrokeimg/hosting/sites/edgestrokeimg",
+    "project_path": "D:/Projects/edgestroke",
+    "run_file": "run_web.bat"
   }
 ]
