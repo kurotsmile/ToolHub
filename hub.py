@@ -251,6 +251,29 @@ class ToolHubApp:
             arrowcolor=[("active", self.colors["header_text"])],
         )
         style.configure(
+            "Dialog.TCombobox",
+            padding=4,
+            arrowsize=14,
+            fieldbackground=self.colors["input_bg"],
+            background=self.colors["input_bg"],
+            foreground=self.colors["input_fg"],
+            arrowcolor=self.colors["muted"],
+            bordercolor="#C8D7EB",
+            lightcolor="#C8D7EB",
+            darkcolor="#C8D7EB",
+            insertcolor=self.colors["input_fg"],
+        )
+        style.map(
+            "Dialog.TCombobox",
+            fieldbackground=[("focus", "#F7FBFF")],
+            background=[("focus", "#F7FBFF")],
+            foreground=[("focus", self.colors["input_fg"])],
+            bordercolor=[("focus", self.colors["button_border_hover"])],
+            lightcolor=[("focus", self.colors["button_border_hover"])],
+            darkcolor=[("focus", self.colors["button_border_hover"])],
+            arrowcolor=[("active", self.colors["header_text"])],
+        )
+        style.configure(
             "App.Vertical.TScrollbar",
             background=self.colors["scroll_thumb"],
             troughcolor=self.colors["scroll_trough"],
@@ -535,6 +558,7 @@ class ToolHubApp:
 
         form = ttk.Frame(dialog, style="Dialog.TFrame", padding=14)
         form.grid(row=0, column=0, sticky="nsew")
+        email_values = sorted({entry.email.strip() for entry in self.entries if entry.email.strip()}, key=str.lower)
 
         labels = [
             ("Tool Name*", "name"),
@@ -548,7 +572,16 @@ class ToolHubApp:
 
         for row_idx, (label, key) in enumerate(labels):
             ttk.Label(form, text=label, style="Dialog.TLabel").grid(row=row_idx, column=0, sticky="w", pady=5)
-            entry_widget = ttk.Entry(form, textvariable=vars_map[key], width=78)
+            if key == "email":
+                entry_widget = ttk.Combobox(
+                    form,
+                    textvariable=vars_map[key],
+                    values=email_values,
+                    style="Dialog.TCombobox",
+                    width=76,
+                )
+            else:
+                entry_widget = ttk.Entry(form, textvariable=vars_map[key], width=78)
             entry_widget.grid(row=row_idx, column=1, sticky="ew", padx=(8, 0), pady=5)
 
             if key == "project_path":

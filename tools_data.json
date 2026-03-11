@@ -79,5 +79,50 @@
     "firebase_console_url": "https://console.firebase.google.com/project/edgestrokeimg/hosting/sites/edgestrokeimg",
     "project_path": "D:/Projects/edgestroke",
     "run_file": "run_web.bat"
+  },
+  {
+    "name": "gridcollage",
+    "email": "vanmaicodon93@gmail.com",
+    "website_url": "https://gridcollageimg.web.app",
+    "github_url": "https://github.com/kurotsmile/gridcollage",
+    "firebase_console_url": "https://console.firebase.google.com/project/gridcollageimg/hosting/sites/gridcollageimg",
+    "project_path": "D:/Projects/gridcollage",
+    "run_file": "run_web.bat"
+  },
+  {
+    "name": "whatdevice",
+    "email": "kurotsmile6@gmail.com",
+    "website_url": "https://whatdeviceonline.web.app",
+    "github_url": "https://github.com/kurotsmile/whatdevice",
+    "firebase_console_url": "https://console.firebase.google.com/project/whatdeviceonline/hosting/sites/whatdeviceonline",
+    "project_path": "D:/Projects/whatdevice",
+    "run_file": "run_web.bat"
+  },
+  {
+    "name": "palettefromimg",
+    "email": "kurotsmile6@gmail.com",
+    "website_url": "https://palettefromimg.web.app",
+    "github_url": "https://github.com/kurotsmile/palettefromimg",
+    "firebase_console_url": "https://console.firebase.google.com/project/palettefromimg/hosting/sites/palettefromimg",
+    "project_path": "D:/Projects/palettefromimg",
+    "run_file": "run_web.bat"
+  },
+  {
+    "name": "retrolabfx",
+    "email": "kurotsmile6@gmail.com",
+    "website_url": "https://retrolabfx.web.app",
+    "github_url": "https://github.com/kurotsmile/retrolabfx",
+    "firebase_console_url": "https://console.firebase.google.com/project/retrolabfx/hosting/sites/retrolabfx",
+    "project_path": "D:/Projects/retrolabfx",
+    "run_file": "run_web.bat"
+  },
+  {
+    "name": "qrquick",
+    "email": "luyenvn2021@gmail.com",
+    "website_url": "https://qrquicktool.web.app/",
+    "github_url": "",
+    "firebase_console_url": "",
+    "project_path": "D:/Projects/qrquick",
+    "run_file": "run_web.bat"
   }
 ]
