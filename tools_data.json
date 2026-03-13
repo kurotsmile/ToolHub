@@ -5,8 +5,7 @@
     "website_url": "https://autoboostimg.web.app",
     "github_url": "https://github.com/kurotsmile/autoboostimg",
     "firebase_console_url": "https://console.firebase.google.com/project/autoboostimg/hosting/sites/autoboostimg",
-    "project_path": "D:/Projects/autoboostimg",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/autoboostimg"
   },
   {
     "name": "duotonefy",
@@ -14,8 +13,7 @@
     "website_url": "https://duotonefy.web.app",
     "github_url": "https://github.com/kurotsmile/duotonefy",
     "firebase_console_url": "https://console.firebase.google.com/project/duotonefy/hosting/sites/duotonefy",
-    "project_path": "D:/Projects/duotonefy",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/duotonefy"
   },
   {
     "name": "gamepadtool",
@@ -23,8 +21,7 @@
     "website_url": "https://gamepadtool.web.app",
     "github_url": "https://github.com/kurotsmile/gamepadtool",
     "firebase_console_url": "https://console.firebase.google.com/project/gamepadtool/hosting/sites/gamepadtool",
-    "project_path": "D:/Projects/gamepadtool",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/gamepadtool"
   },
   {
     "name": "PC-Speed-Test",
@@ -32,8 +29,7 @@
     "website_url": "https://pcspeedtool.web.app",
     "github_url": "https://github.com/kurotsmile/PC-Speed-Test",
     "firebase_console_url": "https://console.firebase.google.com/project/pcspeedtool/hosting/sites/pcspeedtool",
-    "project_path": "D:/Projects/PC-Speed-Test",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/PC-Speed-Test"
   },
   {
     "name": "CoCRent",
@@ -41,8 +37,7 @@
     "website_url": "https://cocshop28.web.app",
     "github_url": "https://github.com/kurotsmile/CoCRent",
     "firebase_console_url": "https://console.firebase.google.com/project/cocshop28/hosting/sites/cocshop28",
-    "project_path": "D:/Projects/CoCRent",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/CoCRent"
   },
   {
     "name": "imgbase64",
@@ -50,8 +45,7 @@
     "website_url": "https://pastecropimage.web.app",
     "github_url": "https://github.com/kurotsmile/imgbase64",
     "firebase_console_url": "https://console.firebase.google.com/project/pastecropimage/hosting/sites/pastecropimage",
-    "project_path": "D:/Projects/imgbase64",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/imgbase64"
   },
   {
     "name": "Paste-Crop-Image",
@@ -59,8 +53,7 @@
     "website_url": "https://pastecropimage.web.app",
     "github_url": "https://github.com/kurotsmile/Paste-Crop-Image",
     "firebase_console_url": "https://console.firebase.google.com/project/pastecropimage/hosting/sites/pastecropimage",
-    "project_path": "D:/Projects/Paste-Crop-Image",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/Paste-Crop-Image"
   },
   {
     "name": "palettekit",
@@ -68,8 +61,7 @@
     "website_url": "https://palettekitcolor.web.app",
     "github_url": "https://github.com/kurotsmile/palettekit",
     "firebase_console_url": "https://console.firebase.google.com/project/palettekitcolor/hosting/sites/palettekitcolor",
-    "project_path": "D:/Projects/palettekit",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/palettekit"
   },
   {
     "name": "edgestroke",
@@ -77,8 +69,7 @@
     "website_url": "https://edgestrokeimg.web.app",
     "github_url": "https://github.com/kurotsmile/edgestroke",
     "firebase_console_url": "https://console.firebase.google.com/project/edgestrokeimg/hosting/sites/edgestrokeimg",
-    "project_path": "D:/Projects/edgestroke",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/edgestroke"
   },
   {
     "name": "gridcollage",
@@ -86,8 +77,7 @@
     "website_url": "https://gridcollageimg.web.app",
     "github_url": "https://github.com/kurotsmile/gridcollage",
     "firebase_console_url": "https://console.firebase.google.com/project/gridcollageimg/hosting/sites/gridcollageimg",
-    "project_path": "D:/Projects/gridcollage",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/gridcollage"
   },
   {
     "name": "whatdevice",
@@ -95,8 +85,7 @@
     "website_url": "https://whatdeviceonline.web.app",
     "github_url": "https://github.com/kurotsmile/whatdevice",
     "firebase_console_url": "https://console.firebase.google.com/project/whatdeviceonline/hosting/sites/whatdeviceonline",
-    "project_path": "D:/Projects/whatdevice",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/whatdevice"
   },
   {
     "name": "palettefromimg",
@@ -104,8 +93,7 @@
     "website_url": "https://palettefromimg.web.app",
     "github_url": "https://github.com/kurotsmile/palettefromimg",
     "firebase_console_url": "https://console.firebase.google.com/project/palettefromimg/hosting/sites/palettefromimg",
-    "project_path": "D:/Projects/palettefromimg",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/palettefromimg"
   },
   {
     "name": "retrolabfx",
@@ -113,8 +101,7 @@
     "website_url": "https://retrolabfx.web.app",
     "github_url": "https://github.com/kurotsmile/retrolabfx",
     "firebase_console_url": "https://console.firebase.google.com/project/retrolabfx/hosting/sites/retrolabfx",
-    "project_path": "D:/Projects/retrolabfx",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/retrolabfx"
   },
   {
     "name": "qrquick",
@@ -122,8 +109,7 @@
     "website_url": "https://qrquickimg.web.app",
     "github_url": "https://github.com/kurotsmile/qrquick",
     "firebase_console_url": "https://console.firebase.google.com/project/qrquickimg/hosting/sites/qrquickimg",
-    "project_path": "D:/Projects/qrquick",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/qrquick"
   },
   {
     "name": "svgpathmini",
@@ -131,7 +117,30 @@
     "website_url": "https://svgpathmini.web.app",
     "github_url": "https://github.com/kurotsmile/svgpathmini",
     "firebase_console_url": "https://console.firebase.google.com/project/svgpathmini/hosting/sites/svgpathmini",
-    "project_path": "D:/Projects/svgpathmini",
-    "run_file": "run_web.cmd"
+    "project_path": "D:/Projects/svgpathmini"
+  },
+  {
+    "name": "instafilterlab",
+    "email": "dangthivan79@gmail.com",
+    "website_url": "https://instafilterlab.web.app",
+    "github_url": "https://github.com/kurotsmile/instafilterlab",
+    "firebase_console_url": "https://console.firebase.google.com/project/instafilterlab/hosting/sites/instafilterlab",
+    "project_path": "D:/Projects/instafilterlab"
+  },
+  {
+    "name": "typerush",
+    "email": "kurotsmile6@gmail.com",
+    "website_url": "https://typerushtool.web.app",
+    "github_url": "https://github.com/kurotsmile/typerush",
+    "firebase_console_url": "https://console.firebase.google.com/project/typerushtool/hosting/sites/typerushtool",
+    "project_path": "D:/Projects/typerush"
+  },
+  {
+    "name": "timeflip",
+    "email": "kurotsmile6@gmail.com",
+    "website_url": "https://timefliptool.web.app",
+    "github_url": "https://github.com/kurotsmile/timeflip",
+    "firebase_console_url": "https://console.firebase.google.com/project/timefliptool/overview",
+    "project_path": "D:/Projects/timeflip"
   }
 ]
